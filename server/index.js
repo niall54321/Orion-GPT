@@ -15,6 +15,12 @@ app.use(bodyParser.json())
 app.use(cors())
 const port = 3080;
 
+app.get('/', async (req, res) => {
+    res.status(200).send({
+      message: 'Hello from Orion GPT Backend!'
+    })
+  })
+
 app.post('/', async (req, res) => {
     const { message, currentModel, temperature } = req.body;
     console.log(`Current Model: ${currentModel} | Temperature: ${temperature}`)
