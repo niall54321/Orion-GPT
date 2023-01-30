@@ -7,27 +7,35 @@ export const ChatProvider = ({children}) => {
     const [models, setModels] = useState([]);
     const [currentModel, setCurrentModel] = useState("text-davinci-003");
     const [temperature, setTemperature] = useState(0.1);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (message) => {
 
         let chatLogNew = [...chatLog, { user: "user", message}]
 
-        setChatLog(chatLogNew)
+        setLoading(true);
+        setChatLog(chatLogNew);
 
         const messages = chatLogNew.map((entry) => entry.message).join("\n")
-        const response = await fetch("https://orion-gpt-host.onrender.com/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: messages,
-                currentModel,
-                temperature,
-            })
-        });
-        const data = await response.json();
-        setChatLog([...chatLogNew, { user: "AI", message: `${data.message}`}])
+        try {
+            const response = await fetch("https://orion-gpt-host.onrender.com/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: messages,
+                    currentModel,
+                    temperature,
+                })
+            });
+            const data = await response.json();
+            setChatLog([...chatLogNew, { user: "AI", message: `${data.message}`}])
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
 
     }
     
@@ -44,7 +52,7 @@ export const ChatProvider = ({children}) => {
     }, [])
 
     return (
-        <ChatContext.Provider value={{formValue, setFormValue, chatLog, setChatLog, models, setModels, currentModel, setCurrentModel, handleSubmit, temperature, setTemperature}}>
+        <ChatContext.Provider value={{formValue, setFormValue, chatLog, setChatLog, models, setModels, currentModel, setCurrentModel, handleSubmit, temperature, setTemperature, loading}}>
             {children}
         </ChatContext.Provider>
     )
