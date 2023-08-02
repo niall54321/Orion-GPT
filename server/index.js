@@ -45,7 +45,7 @@ app.get('/models', async (req, res) => {
     })
 });
 
-// app.listen(port, () => {
-//     console.log(`App is listening at http://localhost:${port}`)
-// });
+app.listen(port, () => {
+    console.log(`App is listening at http://localhost:${port}`)
+});
 
