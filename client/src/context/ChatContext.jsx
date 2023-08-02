@@ -18,7 +18,7 @@ export const ChatProvider = ({children}) => {
 
         const messages = chatLogNew.map((entry) => entry.content).join("\n")
         try {
-            const response = await fetch("http://localhost:3080/", {
+            const response = await fetch("https://orion-gpt-server.onrender.com/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -41,7 +41,7 @@ export const ChatProvider = ({children}) => {
     }
     
     const getEngines = () => {
-        fetch("http://localhost:3080/models")
+        fetch("https://orion-gpt-server.onrender.com/models")
         .then(res => res.json())
         .then(data => {
             setModels(data.models.data)
