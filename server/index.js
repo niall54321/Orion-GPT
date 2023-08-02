@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 const app = express();
 app.use(bodyParser.json())
 app.use(cors())
-const port = 3080;
+const port = process.env.port || 3080;
 
 app.get('/', async (req, res) => {
     res.status(200).send({
