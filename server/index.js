@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const configuration = new Configuration({
-    organization: "org-FWtO3crcLoFZC4FIRvVV1ys7",
+    organization: "org-qPnNa9pFxAJHKMSHNuI7c791",
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
@@ -22,29 +22,30 @@ app.get('/', async (req, res) => {
   })
 
 app.post('/', async (req, res) => {
-    const { message, currentModel, temperature } = req.body;
-    console.log(`Current Model: ${currentModel} | Temperature: ${temperature}`)
-    const response = await openai.createCompletion({
+    const { chatLogNew, message, currentModel, temperature } = req.body;
+    // console.log(`Current Model: ${currentModel} | Temperature: ${temperature} | Messages: ${message}`)
+    // console.log(chatLogNew);
+    const response = await openai.createChatCompletion({
         model: `${currentModel}`,
-        prompt: `${message}`,
+        messages: chatLogNew,
         max_tokens: 1000,
         frequency_penalty: 1,
         temperature
     });
-
+        
     res.json({
-        message: response.data.choices[0].text,
+        message: response.data.choices[0].message.content,
     })
 });
 
 app.get('/models', async (req, res) => {
-    const response = await openai.listEngines();
+    const response = await openai.listModels();
     res.json({
         models: response.data
     })
 });
 
-app.listen(port, () => {
-    console.log(`App is listening at http://localhost:${port}`)
-});
+// app.listen(port, () => {
+//     console.log(`App is listening at http://localhost:${port}`)
+// });
 

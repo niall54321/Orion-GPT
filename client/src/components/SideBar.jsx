@@ -9,7 +9,7 @@ const SideBar = () => {
         <aside className='flex-none text-white text-center w-64 bg-[#202123] py-4'>
             <NewChat />
             <ModelsSelector />
-            <Slider min={0} max={1}/>
+            <Slider min={0} max={2}/>
         </aside>
     )
 }

@@ -11,7 +11,7 @@ const ChatBox = () => {
     const { chatLog, handleSubmit } = useContext(ChatContext);
 
     return (
-        <section className=' relative text-white w-full text-center bg-[#343541]'>
+        <section className='relative text-white w-full text-center bg-[#343541]'>
             <ChatLog chatLog={chatLog} />
             <ChatInput onSubmit={handleSubmit}/>
         </section>

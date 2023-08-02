@@ -7,14 +7,15 @@ import { ChatContext } from "../context/ChatContext";
 
 import Loader from "./Loader";
 
-const ChatLog = (chatLog) => {
+const ChatLog = (props) => {
     const { loading } = useContext(ChatContext);
+    const { chatLog } = props;
 
     return (
-        <div className=" h-screen overflow-auto">        
+        <div className="pb-20 h-screen overflow-auto">        
                {
-                chatLog.chatLog.map((chatLog, index) => (
-                    <ChatMessage key={index} message={chatLog.message.replace(/^\s+/,'')} user={chatLog.user} />
+                chatLog.map((chatLogEntry, index) => (
+                    <ChatMessage key={index} user={chatLogEntry} />
                 ))
                     
                 }               

@@ -14,7 +14,12 @@ const Slider = ({min, max}) => {
 
     return(
         <div className='pt-10 px-4'>
-            <h2 className=' text-left underline underline-offset-2'>Temperature</h2>
+            <div className="relative group">
+                <h2 className='group-hover:cursor-pointer text-left underline underline-offset-2'>Temperature</h2>
+                <div className="text-xs hidden opacity-0 group-hover:block group-hover:opacity-100 transition-all duration-300 absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-[#40414f] p-2 rounded border border-gray-300">
+                    Sampling Temperature. Lower values result in more focused and deterministic responses. Higher values result in more random responses.
+                </div>
+            </div>
             <div className="flex items-center mt-2">
                 <input className="w-1/5 bg-transparent border-2 rounded-lg appearance-none text-center"
                     type="number"
